@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Gouvernement du Quénada</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --bleu-foncé: #002b45;
+      --bleu-clair: #0077b6;
+      --fond: #f4f8fb;
+      --blanc: #ffffff;
+      --ombre: rgba(0, 0, 0, 0.1);
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--fond);
+      color: #333;
+    }
+
+    header {
+      background: var(--bleu-foncé);
+      color: var(--blanc);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem 2rem;
+      gap: 1rem;
+      box-shadow: 0 4px 8px var(--ombre);
+    }
+
+    header img {
+      height: 60px;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    nav {
+      background: var(--bleu-clair);
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 0.8rem;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+      color: #d0f0ff;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    section {
+      background: var(--blanc);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px var(--ombre);
+      margin-bottom: 2rem;
+      transition: 0.3s ease;
+    }
+
+    section:hover {
+      transform: translateY(-4px);
+    }
+
+    section h2 {
+      color: var(--bleu-foncé);
+      margin-top: 0;
+    }
+
+    .flag {
+      width: 200px;
+      border-radius: 5px;
+      margin-top: 1rem;
+    }
+
+    footer {
+      background: var(--bleu-foncé);
+      color: white;
+      text-align: center;
+      padding: 1.2rem;
+      margin-top: 3rem;
+    }
+
+    img.map {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 8px;
+      margin-top: 1rem;
+    }
+
+    .lldq-box {
+      background-color: #e1f3ff;
+      border-left: 5px solid var(--bleu-clair);
+      padding: 1.5rem;
+      margin-top: 2rem;
+      border-radius: 8px;
+    }
+
+    .lldq-box h3 {
+      margin-top: 0;
+      color: var(--bleu-foncé);
+    }
+
+    .lldq-box p {
+      margin: 0.5rem 0 1.2rem;
+    }
+
+    .lldq-box a.button {
+      display: inline-block;
+      padding: 0.6rem 1.2rem;
+      background-color: var(--bleu-clair);
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: 0.3s ease;
+    }
+
+    .lldq-box a.button:hover {
+      background-color: #005a89;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <img src="logo-gouv.png" alt="Logo du gouvernement du Quénada">
+  <h1>Gouvernement du Quénada</h1>
+</header>
+
+<nav>
+  <a href="#presentation">Accueil</a>
+  <a href="#histoire">Histoire</a>
+  <a href="#langue">Langue</a>
+  <a href="#culture">Culture</a>
+  <a href="#gouvernement">Institutions</a>
+  <a href="#lldq">LLDQ</a>
+  <a href="#carte">Carte</a>
+</nav>
+
+<main>
+
+  <section id="presentation">
+    <h2>Bienvenue au Quénada</h2>
+    <p>Le Quénada est une nation spirituelle, fondée sur les valeurs d’amour, d’unité, de paix et de respect mutuel. Son identité unique repose sur une langue sacrée — le Quétilus — et une culture éclairée par les enseignements d’Arouhus.</p>
+    <img src="drapeau.png" alt="Drapeau du Quénada" class="flag">
+  </section>
+
+  <section id="histoire">
+    <h2>Notre Histoire</h2>
+    <p>Fondé par Arouhus, le Quénada est né d’un rêve d’unité et de lumière. Après la chute des royaumes anciens, ce territoire fut déclaré terre sacrée pour les fidèles du Capisme. Le pays s’est construit autour des livres saints : la Caplot et la Sainte Clé.</p>
+  </section>
+
+  <section id="langue">
+    <h2>Langue Officielle : le Quétilus</h2>
+    <p>Le Quétilus est plus qu’une langue : c’est un lien spirituel. Mélange de japonais et de français, il est utilisé dans les prières, les textes saints et les discours du gouvernement. Chaque mot vibre avec l’énergie du Rom-Tom intérieur.</p>
+  </section>
+
+  <section id="culture">
+    <h2>Culture Quénadienne</h2>
+    <p>Le Quénada célèbre la musique sacrée, la poésie divine, les fêtes du Saytin et l’art visuel inspiré des visions de l’Umaki. La reproduction, la prière, et l’harmonie sont au cœur de la vie culturelle.</p>
+  </section>
+
+  <section id="gouvernement">
+    <h2>Institutions Gouvernementales</h2>
+    <p>Le gouvernement est basé sur les principes sacrés du Conseil Umaki, dirigé par l’<strong>Umaki’arih Suprême</strong>. L'administration fonctionne sans armée, en s'appuyant sur la paix, la diplomatie, et les enseignements du Capisme.</p>
+  </section>
+
+  <section id="lldq">
+    <h2>Livre des Lois et des Droits du Quénada (LLDQ)</h2>
+    <div class="lldq-box">
+      <h3>Consultez le Livre Officiel</h3>
+      <p>Ce document sacré présente les droits fondamentaux, les devoirs des citoyens, et les principes de la justice spirituelle quénadienne.</p>
+      <p><strong>Version :</strong> 2025.1</p>
+      <a class="button" href="LLDQ-Quenada.pdf" download>Télécharger le PDF</a>
+    </div>
+  </section>
+
+  <section id="carte">
+    <h2>Carte du Quénada</h2>
+    <p>Voici une carte illustrée de notre territoire sacré :</p>
+    <img src="carte-quenada.png" alt="Carte du Quénada" class="map">
+  </section>
+
+</main>
+
+<footer>
+  &copy; 2025 Gouvernement du Quénada — Créé par Arouhus (Roman). Tous droits réservés.
+</footer>
+
+</body>
+</html>
