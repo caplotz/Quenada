@@ -313,9 +313,9 @@
       if (y) result += `${y} an${y > 1 ? 's' : ''}, `;
       if (mo) result += `${mo} mois, `;
       if (d) result += `${d} jour${d > 1 ? 's' : ''}, `;
-      if (h) result += `${h} heures, `;
-      if (m) result += `${m} minutes, `;
-      result += `${s}s`;
+      if (h) result += `${h} heure${h > 1 ? 's' : ''}, `;
+      if (m) result += `${m} minute${m > 1 ? 's' : ''}, `;
+      result += `${s} seconde${s > 1 ? 's' : ''}, `;
       return result;
     }
 
