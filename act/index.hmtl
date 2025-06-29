@@ -1,1 +1,174 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Actualités du Quénada</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f7fa;
+      color: #222;
+      padding-top: 70px;
+    }
 
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: #002c5a;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+
+    nav .logo {
+      font-weight: bold;
+      font-size: 20px;
+      letter-spacing: 1px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 30px;
+      font-size: 16px;
+      transition: color 0.3s;
+    }
+
+    nav a:hover, nav a.active {
+      color: #66aaff;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    .article {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+      margin-bottom: 30px;
+      padding: 25px;
+      transition: transform 0.3s;
+    }
+
+    .article:hover {
+      transform: translateY(-4px);
+    }
+
+    .article h2 {
+      margin-top: 0;
+      color: #002c5a;
+    }
+
+    .date {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 10px;
+    }
+
+    .description {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .elapsed {
+      margin-top: 10px;
+      font-size: 14px;
+      font-style: italic;
+      color: #999;
+    }
+
+    .news-img {
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">Gouvernement du Quénada</div>
+    <div>
+      <a href="/Quenada">À propos</a>
+      <a href="/Quenada/gov">Notre gouvernement</a>
+      <a href="/Quenada/act" class="active">Actualités</a>
+      <a href="/Quenada/document">Documents</a>
+      <a href="/Quenada/histoire">Histoire</a>
+      <a href="/Quenada/connect">Connexion d’un officiel</a>
+    </div>
+  </nav>
+
+  <div class="container" id="articles">
+
+    <!-- Exemple d’actualité -->
+    <div class="article" data-time="2024-12-20T18:30:00">
+      <h2>Le Pandzol dépasse la valeur du dollar canadien</h2>
+      <div class="date">Publié le 20 décembre 2024 à 18:30</div>
+      <img class="news-img" src="images/pandzol-record.jpg" alt="Pandzol valeur historique">
+      <div class="description">
+        En date du 20 décembre, le Pandzol a atteint une valeur supérieure au dollar canadien pour la première fois de son histoire.
+        Cela marque un tournant historique pour l’économie quénadienne. Le gouvernement a annoncé la stabilité monétaire comme priorité nationale.
+      </div>
+      <div class="elapsed">Publié il y a ...</div>
+    </div>
+
+    <!-- Copier ce bloc pour chaque nouvelle actualité -->
+
+  </div>
+
+  <script>
+    function timeAgo(fromDate) {
+      const now = new Date();
+      let delta = Math.floor((now - fromDate) / 1000);
+
+      const y = Math.floor(delta / (365 * 24 * 3600));
+      delta %= 365 * 24 * 3600;
+      const mo = Math.floor(delta / (30 * 24 * 3600));
+      delta %= 30 * 24 * 3600;
+      const d = Math.floor(delta / 86400);
+      delta %= 86400;
+      const h = Math.floor(delta / 3600);
+      delta %= 3600;
+      const m = Math.floor(delta / 60);
+      const s = delta % 60;
+
+      let result = "il y a ";
+      if (y) result += `${y} an${y > 1 ? 's' : ''}, `;
+      if (mo) result += `${mo} mois, `;
+      if (d) result += `${d} jour${d > 1 ? 's' : ''}, `;
+      if (h) result += `${h}h, `;
+      if (m) result += `${m}min, `;
+      result += `${s}s`;
+      return result;
+    }
+
+    function updateElapsedTimes() {
+      const articles = document.querySelectorAll('.article');
+      articles.forEach(article => {
+        const timeStr = article.getAttribute('data-time');
+        const pubDate = new Date(timeStr);
+        const elapsedText = timeAgo(pubDate);
+        article.querySelector('.elapsed').textContent = "Publié " + elapsedText;
+      });
+    }
+
+    updateElapsedTimes();
+    setInterval(updateElapsedTimes, 1000);
+  </script>
+
+</body>
+</html>
