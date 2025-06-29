@@ -1,206 +1,145 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Gouvernement du Quénada</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap" rel="stylesheet" />
   <style>
-    html {
-      scroll-behavior: smooth;
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
     }
-
-    :root {
-      --bleu-foncé: #002b45;
-      --bleu-clair: #0077b6;
-      --fond: #f4f8fb;
-      --blanc: #ffffff;
-      --ombre: rgba(0, 0, 0, 0.1);
-    }
-
     body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: var(--fond);
-      color: #333;
+      font-family: 'Inter', sans-serif;
+      background: #f3f6fb;
+      color: #002244;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
-
-header {
-  background: var(--bleu-foncé);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-  box-shadow: 0 4px 8px var(--ombre);
-}
-
-
-    header img {
-      height: 80px;
-    }
-
-    nav {
-      background: var(--bleu-clair);
+    header {
+      background: #002244;
+      color: white;
+      padding: 1rem 1.5rem;
+      position: relative;
       display: flex;
       justify-content: center;
-      gap: 2rem;
-      padding: 0.8rem;
+      align-items: center;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
     }
-
-    nav a {
+    .menu-btn {
+      display: none;
+      position: absolute;
+      left: 1rem;
+      font-size: 2rem;
+      background: none;
+      border: none;
       color: white;
-      text-decoration: none;
-      font-weight: bold;
-      transition: 0.3s;
+      cursor: pointer;
+      user-select: none;
     }
-
-    nav a:hover {
-      text-decoration: underline;
-      color: #d0f0ff;
+    nav {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      align-items: center;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 1rem 0;
+    }
+    nav a {
+      text-decoration: none;
+      color: #002244;
+      font-weight: 600;
+      font-size: 1.1rem;
+      position: relative;
+    }
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #0055aa;
+      transition: width 0.3s ease;
+    }
+    nav a:hover::after {
+      width: 100%;
     }
 
     main {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 0 1rem;
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+    }
+    main img {
+      max-width: 90vw;
+      max-height: 80vh;
+      object-fit: contain;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      animation: fadeInZoom 1.5s ease forwards;
+      opacity: 0;
+    }
+    @keyframes fadeInZoom {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
     }
 
-    section {
-      background: var(--blanc);
-      padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px var(--ombre);
-      margin-bottom: 2rem;
-      transition: 0.3s ease;
-    }
-
-    section:hover {
-      transform: translateY(-4px);
-    }
-
-    section h2 {
-      color: var(--bleu-foncé);
-      margin-top: 0;
-    }
-
-    .flag {
-      width: 200px;
-      border-radius: 5px;
-      margin-top: 1rem;
-    }
-
-    footer {
-      background: var(--bleu-foncé);
-      color: white;
-      text-align: center;
-      padding: 1.2rem;
-      margin-top: 3rem;
-    }
-
-    img.map {
-      width: 100%;
-      max-width: 600px;
-      border-radius: 8px;
-      margin-top: 1rem;
-    }
-
-    .lldq-box {
-      background-color: #e1f3ff;
-      border-left: 5px solid var(--bleu-clair);
-      padding: 1.5rem;
-      margin-top: 2rem;
-      border-radius: 8px;
-    }
-
-    .lldq-box h3 {
-      margin-top: 0;
-      color: var(--bleu-foncé);
-    }
-
-    .lldq-box p {
-      margin: 0.5rem 0 1.2rem;
-    }
-
-    .lldq-box a.button {
-      display: inline-block;
-      padding: 0.6rem 1.2rem;
-      background-color: var(--bleu-clair);
-      color: white;
-      text-decoration: none;
-      border-radius: 6px;
-      font-weight: bold;
-      transition: 0.3s ease;
-    }
-
-    .lldq-box a.button:hover {
-      background-color: #005a89;
+    /* Responsive - menu hamburger */
+    @media (max-width: 768px) {
+      .menu-btn {
+        display: block;
+      }
+      nav {
+        flex-direction: column;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+      }
+      nav.open {
+        max-height: 300px;
+      }
+      nav a {
+        padding: 0.8rem 0;
+        font-size: 1.2rem;
+      }
     }
   </style>
 </head>
 <body>
 
 <header>
-  <img src="logo2.png" alt="Logo du Gouvernement du Quénada">
+  <button class="menu-btn" aria-label="Menu" onclick="toggleMenu()">☰</button>
+  <h1>Gouvernement du Quénada</h1>
 </header>
 
-<nav>
-  <a href="#presentation">Accueil</a>
-  <a href="#histoire">Histoire</a>
-  <a href="#langue">Langue</a>
-  <a href="#culture">Culture</a>
-  <a href="#gouvernement">Institutions</a>
-  <a href="#lldq">LLDQ</a>
-  <a href="#carte">Carte</a>
+<nav id="menu">
+  <a href="#apropos">À propos</a>
+  <a href="#services">Services</a>
+  <a href="#actualites">Actualités</a>
+  <a href="#contact">Contact</a>
 </nav>
 
 <main>
-
-  <section id="presentation">
-    <h2>Bienvenue au Quénada</h2>
-    <p>Le Quénada est une nation spirituelle, fondée sur les valeurs d’amour, d’unité, de paix et de respect mutuel. Son identité unique repose sur une langue sacrée — le Quétilus — et une culture éclairée par les enseignements d’Arouhus.</p>
-    <img src="drapeau.png" alt="Drapeau du Quénada" class="flag">
-  </section>
-
-  <section id="histoire">
-    <h2>Notre Histoire</h2>
-    <p>Fondé par 2 frères Qéna et Dion en an 591, premier pays officialisé, le nom Quénadien vient du mot Qénadion qui a passé a Quénadion puis Quénadiens. Et le nom fut donné, le Quénada. La Quénada commença par être l'empire Quénadien, quand le roi Kondor devint roi. Kondor était dictateur, il y avait des pennes terribles comme; la torture, l'esclavage et la peinde de mort, mais pour laver son image, il créa l'ONPP (Organisation nationale des pays protégés) pour d'après lui, procuer la paix dans le monde. Même si tout le monde savait que c'était pour mentir. Il y avait aussi un mini code-pénal, remplit de peine non logique. Jusqu'a la révolution Quénadienne en an 597 organisée et préparée par 4 révolutionnaires, qui avait des idées lumières. En an 598, la religion officielle passa de Athée a Capiste. Puis la religion capiste fut aussi adaptée dans l'hist </p>
-  </section>
-
-  <section id="langue">
-    <h2>Langue Officielle : le Quétilus</h2>
-    <p>Le Quétilus est plus qu’une langue : c’est un lien spirituel. Mélange de japonais et de français, il est utilisé dans les prières, les textes saints et les discours du gouvernement. Chaque mot vibre avec l’énergie du Rom-Tom intérieur.</p>
-  </section>
-
-  <section id="culture">
-    <h2>Culture Quénadienne</h2>
-    <p>Le Quénada célèbre la musique sacrée, la poésie divine, les fêtes du Saytin et l’art visuel inspiré des visions de l’Umaki. La reproduction, la prière, et l’harmonie sont au cœur de la vie culturelle.</p>
-  </section>
-
-  <section id="gouvernement">
-    <h2>Institutions Gouvernementales</h2>
-    <p>Le gouvernement est basé sur les principes sacrés du Conseil Umaki, dirigé par l’<strong>Umaki’arih Suprême</strong>. L'administration fonctionne sans armée, en s'appuyant sur la paix, la diplomatie, et les enseignements du Capisme.</p>
-  </section>
-
-  <section id="lldq">
-    <h2>Livre des Lois et des Droits du Quénada (LLDQ)</h2>
-    <div class="lldq-box">
-      <h3>Consultez le Livre Officiel</h3>
-      <p>Ce document sacré présente les droits fondamentaux, les devoirs des citoyens, et les principes de la justice spirituelle quénadienne.</p>
-      <p><strong>Version :</strong> 6 (2025.06.22)</p>
-      <a class="button" href="version6.pdf" download>Télécharger le PDF</a>
-    </div>
-  </section>
-
-  <section id="carte">
-    <h2>Carte du Quénada</h2>
-    <p>Voici une carte illustrée de notre territoire sacré :</p>
-    <img src="logo1" alt="Carte du Quénada" class="map">
-  </section>
-
+  <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Coat_of_arms_of_Canada.svg" alt="Blason du Quénada" />
 </main>
 
-<footer>
-  &copy; 2025 Gouvernement du Quénada — Créé par Arouhus (Roman). Tous droits réservés.
-</footer>
+<script>
+  function toggleMenu() {
+    const menu = document.getElementById('menu');
+    menu.classList.toggle('open');
+  }
+</script>
 
 </body>
 </html>
