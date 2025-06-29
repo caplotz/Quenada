@@ -27,8 +27,16 @@
       align-items: center;
       position: relative;
     }
-    h1 {
-      margin-bottom: 2rem;
+    .menu-btn {
+      display: none;
+      position: absolute;
+      left: 1rem;
+      font-size: 2rem;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      user-select: none;
     }
     nav {
       background: #fff;
@@ -37,19 +45,45 @@
       justify-content: center;
       gap: 2rem;
       padding: 1rem 0;
-      max-width: 900px;
-      width: 100%;
+      flex-wrap: wrap;
     }
     nav a {
       color: #002244;
       font-weight: 600;
       font-size: 1.1rem;
       text-decoration: none;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       cursor: pointer;
+      width: 100px;
       transition: color 0.3s ease;
     }
     nav a:hover, nav a[aria-current="page"] {
       color: #0055aa;
+    }
+    nav a span.label {
+      margin-top: 6px;
+    }
+    nav a img {
+      width: 48px;
+      height: 48px;
+      border-radius: 8px;
+      object-fit: contain;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      transition: opacity 2s ease;
+    }
+    nav a img.fade-out {
+      opacity: 0;
+    }
+    nav a .img-container {
+      position: relative;
+      width: 48px;
+      height: 48px;
     }
     main {
       flex-grow: 1;
@@ -136,21 +170,34 @@
       padding: 1rem;
       font-size: 0.9rem;
     }
-    /* Responsive */
-    @media (max-width: 700px) {
-      .document {
+
+    @media (max-width: 768px) {
+      .menu-btn {
+        display: block;
+      }
+      nav {
         flex-direction: column;
-        align-items: stretch;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        gap: 1rem;
       }
-      .doc-cover {
-        width: 100%;
-        height: auto;
-        max-height: 220px;
-        margin-bottom: 1rem;
+      nav.open {
+        max-height: 420px;
+        padding: 1rem 0;
       }
-      .download-btn {
+      nav a {
         width: 100%;
-        justify-content: center;
+        flex-direction: row;
+        gap: 1rem;
+        align-items: center;
+      }
+      nav a img, nav a .img-container {
+        position: static;
+        transform: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 6px;
       }
     }
   </style>
@@ -158,21 +205,39 @@
 <body>
 
 <header>
+  <button class="menu-btn" aria-label="Menu" onclick="toggleMenu()">☰</button>
   <h1>Documents officiels</h1>
 </header>
 
-<nav>
-  <a href="/Quenada">Accueil</a>
-  <a href="/Quenada/gov">Notre gouvernement</a>
-  <a href="/Quenada/act">Actualités</a>
-  <a href="/Quenada/document" aria-current="page">Documents</a>
-  <a href="/Quenada/histoire">Histoire</a>
-  <a href="/Quenada/connect">Connexion officiel</a>
+<nav id="menu">
+  <a href="/Quenada" data-images='["https://img.icons8.com/color/48/000000/info--v1.png","https://img.icons8.com/ios-filled/48/000000/info.png"]'>
+    <div class="img-container"></div>
+    <span class="label">À propos</span>
+  </a>
+  <a href="/Quenada/gov" data-images='["https://img.icons8.com/color/48/000000/organization.png","https://img.icons8.com/ios-filled/48/000000/organization.png"]'>
+    <div class="img-container"></div>
+    <span class="label">Notre gouvernement</span>
+  </a>
+  <a href="/Quenada/act" data-images='["https://img.icons8.com/color/48/000000/news.png","https://img.icons8.com/ios-filled/48/000000/news.png"]'>
+    <div class="img-container"></div>
+    <span class="label">Actualités</span>
+  </a>
+  <a href="/Quenada/document" aria-current="page" data-images='["https://img.icons8.com/color/48/000000/document--v1.png","https://img.icons8.com/ios-filled/48/000000/document.png"]'>
+    <div class="img-container"></div>
+    <span class="label">Documents</span>
+  </a>
+  <a href="/Quenada/histoire" data-images='["https://img.icons8.com/color/48/000000/time-machine.png","https://img.icons8.com/ios-filled/48/000000/time-machine.png"]'>
+    <div class="img-container"></div>
+    <span class="label">Histoire</span>
+  </a>
+  <a href="/Quenada/connect" data-images='["https://img.icons8.com/color/48/000000/lock--v1.png","https://img.icons8.com/ios-filled/48/000000/lock.png"]'>
+    <div class="img-container"></div>
+    <span class="label">Connexion officiel</span>
+  </a>
 </nav>
 
 <main>
 
-  <!-- Document à copier/coller et modifier pour ajouter d'autres -->
   <section class="document">
     <img class="doc-cover" src="https://cdn-icons-png.flaticon.com/512/337/337946.png" alt="Code de loi - couverture PDF" />
     <div class="doc-info">
@@ -188,14 +253,50 @@
     </a>
   </section>
 
-  <!-- Ajoute ici d'autres documents en copiant le bloc au-dessus -->
-
 </main>
 
 <footer>
   &copy; 2025 Gouvernement du Quénada. Tous droits réservés.
 </footer>
 
+<script>
+  function toggleMenu() {
+    document.getElementById('menu').classList.toggle('open');
+  }
+
+  const navLinks = document.querySelectorAll('nav a');
+  navLinks.forEach(link => {
+    const container = link.querySelector('.img-container');
+    const imgs = JSON.parse(link.dataset.images);
+    let current = 0;
+
+    imgs.forEach(src => {
+      const img = new Image();
+      img.src = src;
+    });
+
+    const img1 = document.createElement('img');
+    img1.src = imgs[0];
+    container.appendChild(img1);
+
+    const img2 = document.createElement('img');
+    img2.src = imgs[1];
+    img2.classList.add('fade-out');
+    container.appendChild(img2);
+
+    setInterval(() => {
+      if (current === 0) {
+        img1.classList.add('fade-out');
+        img2.classList.remove('fade-out');
+        current = 1;
+      } else {
+        img2.classList.add('fade-out');
+        img1.classList.remove('fade-out');
+        current = 0;
+      }
+    }, 6000);
+  });
+</script>
+
 </body>
 </html>
-
