@@ -13,7 +13,7 @@
       font-family: 'Inter', sans-serif;
       background-color: #f7f9fc;
       color: #222;
-      padding-top: 70px;
+      padding-top: 130px; /* hauteur cumulée header + nav */
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -87,13 +87,12 @@
       height: 48px;
       border-radius: 8px;
       object-fit: contain;
-      position: relative;
-      transition: opacity 2s ease;
-      opacity: 1;
       position: absolute;
       top: 0;
       left: 50%;
       transform: translateX(-50%);
+      transition: opacity 2s ease;
+      opacity: 1;
     }
 
     nav a img.fade-out {
@@ -110,7 +109,7 @@
     main {
       flex-grow: 1;
       max-width: 1000px;
-      margin: 40px auto 80px auto; /* marge pour éviter nav fixe */
+      margin: 20px auto 80px auto; /* marge pour éviter nav fixe */
       padding: 0 20px;
       line-height: 1.8;
       font-size: 17px;
@@ -302,7 +301,7 @@
         img1.classList.remove('fade-out');
         current = 0;
       }
-    }, 6000); // Change every 6 seconds
+    }, 6000);
   });
 </script>
 
