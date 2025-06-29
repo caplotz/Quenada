@@ -186,6 +186,109 @@
 <span class="label">- Le triangle jaune, a gauche de l’image est le soleil, disant que au Canada le soleil et la lumière de la paix envoyée par Avoh règne.</span>
 <span class="label">- Le rectangle bleu en haut est le ciel, car il faut toujours beau au Quénada.</span>
  <span class="label">- Et le rectangle en bas est vert, citant la verdure dans le Quénada et sa nature.</span>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 1.5em;
+      text-align: center;
+      margin: 50px;
+    }
+    input, select, button {
+      font-size: 1em;
+      padding: 0.5em;
+      margin-top: 1em;
+    }
+    .result {
+      margin-top: 1em;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1 id="customYear"></h1>
+
+  <hr>
+
+  <h2>Calculateur d'âge</h2>
+  <p>Entrez le mois et l'année de votre arrivée sur le serveur :</p>
+
+  <label for="month">Mois :</label>
+  <select id="month">
+    <option value="0">Janvier</option>
+    <option value="1">Février</option>
+    <option value="2">Mars</option>
+    <option value="3">Avril</option>
+    <option value="4">Mai</option>
+    <option value="5">Juin</option>
+    <option value="6">Juillet</option>
+    <option value="7">Août</option>
+    <option value="8">Septembre</option>
+    <option value="9">Octobre</option>
+    <option value="10">Novembre</option>
+    <option value="11">Décembre</option>
+  </select>
+
+  <label for="year">Année :</label>
+  <input type="number" id="year" min="2000" max="2100" />
+
+  <br>
+  <button onclick="calculateAge()">Calculer mon âge</button>
+
+  <div class="result" id="ageResult"></div>
+
+  <script>
+    // BASE DE RÉFÉRENCE : Juin 2025 = An 603
+    const baseYear = 2025;
+    const baseMonth = 5; // Juin
+    const baseCustomYear = 603;
+
+    function getCurrentCustomYear() {
+      const today = new Date();
+      const yearDiff = today.getFullYear() - baseYear;
+      const monthDiff = today.getMonth() - baseMonth;
+      const totalMonths = yearDiff * 12 + monthDiff;
+      return baseCustomYear + totalMonths;
+    }
+
+    document.getElementById("customYear").textContent =
+      "Nous sommes en l'an " + getCurrentCustomYear();
+
+    function calculateAge() {
+      const joinMonth = parseInt(document.getElementById("month").value);
+      const joinYear = parseInt(document.getElementById("year").value);
+
+      if (isNaN(joinYear) || joinYear < 2000 || joinYear > 2100) {
+        document.getElementById("ageResult").textContent =
+          "Veuillez entrer une année valide.";
+        return;
+      }
+
+      const yearDiff = joinYear - baseYear;
+      const monthDiff = joinMonth - baseMonth;
+      const totalMonthsSinceJoin = yearDiff * 12 + monthDiff;
+
+      const currentCustomYear = getCurrentCustomYear();
+      const joinCustomYear = baseCustomYear + totalMonthsSinceJoin;
+      const age = currentCustomYear - joinCustomYear;
+
+      if (age < 0) {
+        document.getElementById("ageResult").textContent =
+          "Vous venez du futur 👽 !";
+      } else {
+        document.getElementById("ageResult").textContent =
+          "Vous avez " + age + " an(s) sur le serveur.";
+      }
+    }
+  </script>
+  
+    <h3>La majorité s'atteint a 16 ans</h3>    
+    <h6>Actionnement 9e de la Majorité</h6>
+
+
+</body>
+
 <script>
   // Toggle menu for mobile
   function toggleMenu() {
