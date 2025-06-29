@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="fr" >
+<html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Notre gouvernement - Gouvernement du Quénada</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap" rel="stylesheet" />
   <style>
-    /* Reset */
     * {
       margin: 0; padding: 0; box-sizing: border-box;
     }
@@ -50,8 +49,6 @@
       gap: 2rem;
       padding: 1rem 0;
       flex-wrap: wrap;
-      max-width: 900px;
-      width: 100%;
     }
 
     nav a {
@@ -68,7 +65,8 @@
       transition: color 0.3s ease;
     }
 
-    nav a:hover, nav a[aria-current="page"] {
+    nav a:hover,
+    nav a[aria-current="page"] {
       color: #0055aa;
     }
 
@@ -78,16 +76,14 @@
 
     nav a img {
       width: 48px;
-      height: 32px;
+      height: 48px;
       border-radius: 8px;
-      object-fit: cover;
-      position: relative;
-      transition: opacity 2s ease;
-      opacity: 1;
+      object-fit: contain;
       position: absolute;
       top: 0;
       left: 50%;
       transform: translateX(-50%);
+      transition: opacity 2s ease;
     }
 
     nav a img.fade-out {
@@ -97,8 +93,7 @@
     nav a .img-container {
       position: relative;
       width: 48px;
-      height: 32px;
-      margin-bottom: 22px;
+      height: 48px;
     }
 
     main {
@@ -174,7 +169,6 @@
       font-size: 0.9rem;
     }
 
-    /* Responsive - hamburger */
     @media (max-width: 768px) {
       .menu-btn {
         display: block;
@@ -185,7 +179,6 @@
         overflow: hidden;
         transition: max-height 0.3s ease;
         gap: 1rem;
-        width: 100%;
       }
       nav.open {
         max-height: 420px;
@@ -196,17 +189,15 @@
         flex-direction: row;
         gap: 1rem;
         align-items: center;
-        padding-left: 1.5rem;
       }
-      nav a .img-container {
+      nav a img, nav a .img-container {
         position: static;
         transform: none;
-        width: 48px;
-        height: 32px;
-        margin-bottom: 0;
+        width: 40px;
+        height: 40px;
+        border-radius: 6px;
       }
     }
-
   </style>
 </head>
 <body>
@@ -283,8 +274,7 @@
 
   <section>
     <h2>Organigramme simplifié</h2>
-      <li>Lire article 9.3 a 9.4 dans le livre LLDQ</li>
-    </ul>
+      <li>Lire article 9.3 à 9.4 dans le livre LLDQ</li>
   </section>
 </main>
 
@@ -293,25 +283,21 @@
 </footer>
 
 <script>
-  // Toggle menu pour mobile
   function toggleMenu() {
     document.getElementById('menu').classList.toggle('open');
   }
 
-  // Animation images menu
   const navLinks = document.querySelectorAll('nav a');
   navLinks.forEach(link => {
     const container = link.querySelector('.img-container');
     const imgs = JSON.parse(link.dataset.images);
     let current = 0;
 
-    // Précharge images
     imgs.forEach(src => {
       const img = new Image();
       img.src = src;
     });
 
-    // Création 2 images pour fondu
     const img1 = document.createElement('img');
     img1.src = imgs[0];
     container.appendChild(img1);
