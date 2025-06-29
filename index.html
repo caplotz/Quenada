@@ -1,120 +1,149 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Gouvernement du Quénada</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap" rel="stylesheet" />
-  <style>
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Gouvernement du Quénada</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap" rel="stylesheet" />
+<style>
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #f3f6fb;
+    color: #002244;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  header {
+    background: #002244;
+    color: white;
+    padding: 1rem 1.5rem;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  }
+  .menu-btn {
+    display: none;
+    position: absolute;
+    left: 1rem;
+    font-size: 2rem;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    user-select: none;
+  }
+  nav {
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    padding: 1rem 0;
+    flex-wrap: wrap;
+  }
+  nav a {
+    color: #002244;
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-decoration: none;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    width: 100px;
+    transition: color 0.3s ease;
+  }
+  nav a:hover {
+    color: #0055aa;
+  }
+  nav a span.label {
+    margin-top: 6px;
+  }
+  nav a img {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    object-fit: contain;
+    position: relative;
+    transition: opacity 2s ease;
+    opacity: 1;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  nav a img.fade-out {
+    opacity: 0;
+  }
+  nav a .img-container {
+    position: relative;
+    width: 48px;
+    height: 48px;
+  }
+  main {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+  }
+  main img {
+    max-width: 90vw;
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    animation: fadeInZoom 1.5s ease forwards;
+    opacity: 0;
+  }
+  @keyframes fadeInZoom {
+    to {
+      opacity: 1;
+      transform: scale(1);
     }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #f3f6fb;
-      color: #002244;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
+    from {
+      opacity: 0;
+      transform: scale(0.95);
     }
-    header {
-      background: #002244;
-      color: white;
-      padding: 1rem 1.5rem;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-    }
+  }
+  /* Responsive - hamburger */
+  @media (max-width: 768px) {
     .menu-btn {
-      display: none;
-      position: absolute;
-      left: 1rem;
-      font-size: 2rem;
-      background: none;
-      border: none;
-      color: white;
-      cursor: pointer;
-      user-select: none;
+      display: block;
     }
     nav {
-      display: flex;
-      gap: 2rem;
-      justify-content: center;
-      align-items: center;
-      background: #fff;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      flex-direction: column;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      gap: 1rem;
+    }
+    nav.open {
+      max-height: 420px;
       padding: 1rem 0;
     }
     nav a {
-      text-decoration: none;
-      color: #002244;
-      font-weight: 600;
-      font-size: 1.1rem;
-      position: relative;
-    }
-    nav a::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: #0055aa;
-      transition: width 0.3s ease;
-    }
-    nav a:hover::after {
       width: 100%;
-    }
-
-    main {
-      flex-grow: 1;
-      display: flex;
-      justify-content: center;
+      flex-direction: row;
+      gap: 1rem;
       align-items: center;
-      padding: 1rem;
     }
-    main img {
-      max-width: 90vw;
-      max-height: 80vh;
-      object-fit: contain;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      animation: fadeInZoom 1.5s ease forwards;
-      opacity: 0;
+    nav a img, nav a .img-container {
+      position: static;
+      transform: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 6px;
     }
-    @keyframes fadeInZoom {
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-      from {
-        opacity: 0;
-        transform: scale(0.95);
-      }
-    }
-
-    /* Responsive - menu hamburger */
-    @media (max-width: 768px) {
-      .menu-btn {
-        display: block;
-      }
-      nav {
-        flex-direction: column;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease;
-      }
-      nav.open {
-        max-height: 300px;
-      }
-      nav a {
-        padding: 0.8rem 0;
-        font-size: 1.2rem;
-      }
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
 
@@ -124,10 +153,30 @@
 </header>
 
 <nav id="menu">
-  <a href="#apropos">À propos</a>
-  <a href="#services">Services</a>
-  <a href="#actualites">Actualités</a>
-  <a href="#contact">Contact</a>
+  <a href="/Quenada" data-images='["https://img.icons8.com/color/48/000000/info--v1.png","https://img.icons8.com/ios-filled/48/000000/info.png"]'>
+    <div class="img-container"></div>
+    <span class="label">À propos</span>
+  </a>
+  <a href="/Quenada/gov" data-images='["https://img.icons8.com/color/48/000000/organization.png","https://img.icons8.com/ios-filled/48/000000/organization.png"]'>
+    <div class="img-container"></div>
+    <span class="label">Notre gouvernement</span>
+  </a>
+  <a href="/Quenada/act" data-images='["https://img.icons8.com/color/48/000000/news.png","https://img.icons8.com/ios-filled/48/000000/news.png"]'>
+    <div class="img-container"></div>
+    <span class="label">Actualités</span>
+  </a>
+  <a href="/Quenada/document" data-images='["https://img.icons8.com/color/48/000000/document--v1.png","https://img.icons8.com/ios-filled/48/000000/document.png"]'>
+    <div class="img-container"></div>
+    <span class="label">Documents</span>
+  </a>
+  <a href="/Quenada/histoire" data-images='["https://img.icons8.com/color/48/000000/time-machine.png","https://img.icons8.com/ios-filled/48/000000/time-machine.png"]'>
+    <div class="img-container"></div>
+    <span class="label">Histoire</span>
+  </a>
+  <a href="/Quenada/connect" data-images='["https://img.icons8.com/color/48/000000/lock--v1.png","https://img.icons8.com/ios-filled/48/000000/lock.png"]'>
+    <div class="img-container"></div>
+    <span class="label">Connexion officiel</span>
+  </a>
 </nav>
 
 <main>
@@ -135,10 +184,46 @@
 </main>
 
 <script>
+  // Toggle menu for mobile
   function toggleMenu() {
-    const menu = document.getElementById('menu');
-    menu.classList.toggle('open');
+    document.getElementById('menu').classList.toggle('open');
   }
+
+  // Animate image switching in each nav button
+  const navLinks = document.querySelectorAll('nav a');
+  navLinks.forEach(link => {
+    const container = link.querySelector('.img-container');
+    const imgs = JSON.parse(link.dataset.images);
+    let current = 0;
+
+    // Preload images
+    imgs.forEach(src => {
+      const img = new Image();
+      img.src = src;
+    });
+
+    // Create two img elements for crossfade
+    const img1 = document.createElement('img');
+    img1.src = imgs[0];
+    container.appendChild(img1);
+
+    const img2 = document.createElement('img');
+    img2.src = imgs[1];
+    img2.classList.add('fade-out');
+    container.appendChild(img2);
+
+    setInterval(() => {
+      if (current === 0) {
+        img1.classList.add('fade-out');
+        img2.classList.remove('fade-out');
+        current = 1;
+      } else {
+        img2.classList.add('fade-out');
+        img1.classList.remove('fade-out');
+        current = 0;
+      }
+    }, 6000); // Change every 6 seconds
+  });
 </script>
 
 </body>
