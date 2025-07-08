@@ -181,6 +181,29 @@
     }
   </style>
 </head>
+<!-- Zone de mot de passe manuelle -->
+<div style="text-align: center; margin: 2rem auto;">
+  <label for="unlockInput">Mot de passe :</label>
+  <input type="password" id="unlockInput" placeholder="Entrez le mot de passe" />
+  <button onclick="manualUnlock()">Déverrouiller</button>
+  <p id="unlockMessage" style="color: red; margin-top: 0.5rem;"></p>
+</div>
+
+<script>
+  function manualUnlock() {
+    const input = document.getElementById("unlockInput").value;
+    const message = document.getElementById("unlockMessage");
+    if (input === "Cacahuète43$") {
+      lockIcon.classList.add("unlocked");
+      setTimeout(() => {
+        overlay.style.opacity = "0";
+        setTimeout(() => overlay.remove(), 1000);
+      }, 1000);
+    } else {
+      message.textContent = "Mot de passe incorrect.";
+    }
+  }
+</script>
 <body>
 
 <!-- 🔒 Overlay de sécurité avec cadenas -->
