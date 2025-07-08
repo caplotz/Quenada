@@ -1,218 +1,93 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Élections Quénada 2025</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap" rel="stylesheet" />
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      margin: 0;
-      background: #f3f6fb;
-      color: #002244;
-    }
+<html lang="fr">  
+<head>  
+  <meta charset="UTF-8" />  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
+  <title>Élections Quénada 2025</title>  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap" rel="stylesheet" />  
+  <style>  
+    body { font-family: 'Inter', sans-serif; margin: 0; background: #f3f6fb; color: #002244; }
+    header { background: #002244; color: white; padding: 1rem; text-align: center; font-size: 1.5rem; font-weight: bold; }
+    section { max-width: 800px; margin: 3rem auto; padding: 1rem; background: white; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+    h2 { text-align: center; font-size: 1.8rem; color: #003366; margin-bottom: 1.5rem; }
+    .candidat-container { position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; height: 430px; }
+    .candidat-card { position: absolute; width: 100%; max-width: 600px; text-align: center; background: white; border-radius: 10px; transition: transform 0.5s ease, opacity 0.5s ease; opacity: 0; transform: translateX(100%); z-index: 1; }
+    .candidat-card.active { opacity: 1; transform: translateX(0); z-index: 2; }
+    .candidat-card.exit-left { transform: translateX(-100%); opacity: 0; }
+    .candidat-card.exit-right { transform: translateX(100%); opacity: 0; }
+    .candidat-card img { width: 180px; height: 180px; object-fit: cover; border-radius: 50%; margin-top: 1rem; margin-bottom: 1rem; }
+    .candidat-nom { font-weight: bold; font-size: 1.3rem; }
+    .candidat-age { font-style: italic; color: #666; margin-bottom: 0.5rem; }
+    .candidat-region { font-size: 0.9rem; color: #0055aa; margin-bottom: 0.5rem; }
+    .candidat-desc { font-size: 0.95rem; padding: 0 1rem; }
+    .vote-btn { margin-top: 1rem; padding: 0.6rem 1.2rem; border: none; background: #0055aa; color: white; border-radius: 6px; cursor: pointer; }
+    .vote-btn:hover { background: #003366; }
+    .arrow-btn { position: absolute; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 2rem; color: #0055aa; cursor: pointer; z-index: 3; }
+    .arrow-btn:hover { color: #003366; }
+    .arrow-left { left: 0.5rem; }
+    .arrow-right { right: 0.5rem; }
 
-    header {
-      background: #002244;
-      color: white;
-      padding: 1rem;
-      text-align: center;
-      font-size: 1.5rem;
-      font-weight: bold;
-    }
+    /* Overlay du cadenas */  
+    #lockOverlay { position: fixed; z-index: 9999; inset: 0; background: white; display: flex; justify-content: center; align-items: center; flex-direction: column; transition: opacity 1s ease; }
+    #lockIcon { font-size: 100px; color: #888; transition: transform 2s ease-in-out; }
+    #countdown { margin-top: 1rem; font-size: 1.2rem; color: #002244; text-align: center; }
+    .unlocked { animation: fall 1s ease forwards; }
+    @keyframes fall { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(300px) rotate(90deg); opacity: 0; } }
 
-    section {
-      max-width: 800px;
-      margin: 3rem auto;
-      padding: 1rem;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-
-    h2 {
-      text-align: center;
-      font-size: 1.8rem;
-      color: #003366;
-      margin-bottom: 1.5rem;
-    }
-
-    .candidat-container {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      height: 430px;
-    }
-
-    .candidat-card {
-      position: absolute;
+    /* Barre mot de passe fixée en bas */
+    #passwordBox {
+      position: fixed;
+      bottom: 0;
+      left: 0;
       width: 100%;
-      max-width: 600px;
-      text-align: center;
-      background: white;
-      border-radius: 10px;
-      transition: transform 0.5s ease, opacity 0.5s ease;
-      opacity: 0;
-      transform: translateX(100%);
-      z-index: 1;
+      background: #eef4fb;
+      border-top: 2px solid #0055aa;
+      padding: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      z-index: 10000;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
     }
-
-    .candidat-card.active {
-      opacity: 1;
-      transform: translateX(0);
-      z-index: 2;
+    #passwordBox input {
+      padding: 0.6rem 1rem;
+      font-size: 1.1rem;
+      border-radius: 8px;
+      border: 1px solid #aaa;
+      width: 250px;
     }
-
-    .candidat-card.exit-left {
-      transform: translateX(-100%);
-      opacity: 0;
-    }
-
-    .candidat-card.exit-right {
-      transform: translateX(100%);
-      opacity: 0;
-    }
-
-    .candidat-card img {
-      width: 180px;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 50%;
-      margin-top: 1rem;
-      margin-bottom: 1rem;
-    }
-
-    .candidat-nom {
-      font-weight: bold;
-      font-size: 1.3rem;
-    }
-
-    .candidat-age {
-      font-style: italic;
-      color: #666;
-      margin-bottom: 0.5rem;
-    }
-
-    .candidat-region {
-      font-size: 0.9rem;
-      color: #0055aa;
-      margin-bottom: 0.5rem;
-    }
-
-    .candidat-desc {
-      font-size: 0.95rem;
-      padding: 0 1rem;
-    }
-
-    .vote-btn {
-      margin-top: 1rem;
+    #passwordBox button {
       padding: 0.6rem 1.2rem;
-      border: none;
       background: #0055aa;
       color: white;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    .vote-btn:hover {
-      background: #003366;
-    }
-
-    .arrow-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
       border: none;
-      font-size: 2rem;
-      color: #0055aa;
+      border-radius: 8px;
+      font-size: 1.1rem;
       cursor: pointer;
-      z-index: 3;
     }
-
-    .arrow-btn:hover {
-      color: #003366;
-    }
-
-    .arrow-left {
-      left: 0.5rem;
-    }
-
-    .arrow-right {
-      right: 0.5rem;
-    }
-
-    /* Overlay du cadenas */
-    #lockOverlay {
+    #passwordError {
       position: fixed;
-      z-index: 9999;
-      inset: 0;
-      background: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      transition: opacity 1s ease;
-    }
-
-    #lockIcon {
-      font-size: 100px;
-      color: #888;
-      transition: transform 2s ease-in-out;
-    }
-
-    #countdown {
-      margin-top: 1rem;
-      font-size: 1.2rem;
-      color: #002244;
+      bottom: 4.8rem;
+      width: 100%;
       text-align: center;
+      color: red;
+      font-weight: bold;
+      font-size: 1rem;
+      display: none;
+      z-index: 10001;
     }
-
-    .unlocked {
-      animation: fall 1s ease forwards;
-    }
-
-    @keyframes fall {
-      0% { transform: translateY(0); opacity: 1; }
-      100% { transform: translateY(300px) rotate(90deg); opacity: 0; }
-    }
-  </style>
-</head>
-<!-- Zone de mot de passe manuelle -->
-<div style="text-align: center; margin: 2rem auto;">
-  <label for="unlockInput">Mot de passe :</label>
-  <input type="password" id="unlockInput" placeholder="Entrez le mot de passe" />
-  <button onclick="manualUnlock()">Déverrouiller</button>
-  <p id="unlockMessage" style="color: red; margin-top: 0.5rem;"></p>
-</div>
-
-<script>
-  function manualUnlock() {
-    const input = document.getElementById("unlockInput").value;
-    const message = document.getElementById("unlockMessage");
-    if (input === "Cacahuète43$") {
-      lockIcon.classList.add("unlocked");
-      setTimeout(() => {
-        overlay.style.opacity = "0";
-        setTimeout(() => overlay.remove(), 1000);
-      }, 1000);
-    } else {
-      message.textContent = "Mot de passe incorrect.";
-    }
-  }
-</script>
+  </style>  
+</head>  
 <body>
 
-<!-- 🔒 Overlay de sécurité avec cadenas -->
-<div id="lockOverlay">
-  <div id="lockIcon">🔒</div>
-  <div id="countdown">Chargement…</div>
+<!-- 🔒 Overlay de sécurité avec cadenas -->  
+<div id="lockOverlay">  
+  <div id="lockIcon">🔒</div>  
+  <div id="countdown">Chargement…</div>  
 </div>
 
-<header>Élections du Quénada — Septembre à Octobre 2025</header>
+<header>Élections du Quénada — Septembre à Octobre 2025</header>  
 
 <section id="sous-rois">
   <h2>Sous-Rois</h2>
@@ -241,56 +116,27 @@
   </div>
 </section>
 
-<script>
+<!-- Barre mot de passe fixée en bas -->
+<div id="passwordError">Mot de passe incorrect.</div>
+<div id="passwordBox">
+  <input type="password" id="manualPass" placeholder="Entrez le mot de passe..." aria-label="Mot de passe pour déverrouiller">
+  <button onclick="checkPassword()">Déverrouiller</button>
+</div>
+
+<script>  
   const sousRois = [
-    {
-      nom: "Julien Martin",
-      age: 34,
-      promesses: "Éducation, sécurité, autonomie régionale.",
-      desc: "Julien est passionné par les droits civiques et la justice sociale.",
-      img: "https://randomuser.me/api/portraits/men/11.jpg"
-    },
-    {
-      nom: "Aucun",
-      age: 0,
-      promesses: "Aucune",
-      desc: "Aucune",
-      img: "https://randomuser.me/api/portraits/women/45.jpg"
-    }
+    { nom: "Julien Martin", age: 34, promesses: "Éducation, sécurité, autonomie régionale.", desc: "Julien est passionné par les droits civiques et la justice sociale.", img: "https://randomuser.me/api/portraits/men/11.jpg" },
+    { nom: "Aucun", age: 0, promesses: "Aucune", desc: "Aucune", img: "https://randomuser.me/api/portraits/women/45.jpg" }
   ];
 
   const rois = [
-    {
-      nom: "Kondor Murder",
-      age: 180,
-      promesses: "De réduire les impôts de 70% à la team Xbox et garder la paix",
-      desc: "Roi très gentil pas du tous titanique. Pas du tout Tiranique très geune près à tout pour son pays très loyale",
-      img: "https://randomuser.me/api/portraits/men/56.jpg"
-    },
-    {
-      nom: "Laurent Kilian《 Le philosophe 》MacDonald",
-      age: 16,
-      promesses: "Aucune",
-      desc: "Aucune",
-      img: "https://randomuser.me/api/portraits/women/65.jpg"
-    }
+    { nom: "Kondor Murder", age: 180, promesses: "De réduire les impôts de 70% à la team Xbox et garder la paix", desc: "Roi très gentil pas du tous titanique. Pas du tout Tiranique très geune près à tout pour son pays très loyale", img: "https://randomuser.me/api/portraits/men/56.jpg" },
+    { nom: "Laurent Kilian《 Le philosophe 》MacDonald", age: 16, promesses: "Aucune", desc: "Aucune", img: "https://randomuser.me/api/portraits/women/65.jpg" }
   ];
 
   const reps = [
-    {
-      nom: "Sophie Tremblay",
-      age: 38,
-      desc: "Défend l’éducation gratuite et l’égalité d’accès pour tous.",
-      region: "Région Nord",
-      img: "https://randomuser.me/api/portraits/women/15.jpg"
-    },
-    {
-      nom: "Marc Lefevre",
-      age: 45,
-      desc: "Agriculteur engagé pour l’écologie durable et locale.",
-      region: "Centre-Sud",
-      img: "https://randomuser.me/api/portraits/men/36.jpg"
-    }
+    { nom: "Sophie Tremblay", age: 38, desc: "Défend l’éducation gratuite et l’égalité d’accès pour tous.", region: "Région Nord", img: "https://randomuser.me/api/portraits/women/15.jpg" },
+    { nom: "Marc Lefevre", age: 45, desc: "Agriculteur engagé pour l’écologie durable et locale.", region: "Centre-Sud", img: "https://randomuser.me/api/portraits/men/36.jpg" }
   ];
 
   let index = { sousRois: 0, rois: 0, reps: 0 };
@@ -347,7 +193,7 @@
 
   init();
 
-  // Cadenas script
+  // Gestion du cadenas
   const unlockDate = new Date("2025-09-10T00:00:00").getTime();
   const overlay = document.getElementById("lockOverlay");
   const lockIcon = document.getElementById("lockIcon");
@@ -384,6 +230,23 @@
 
   updateCountdown();
   setInterval(updateCountdown, 1000);
+
+  // Déverrouillage manuel
+  function checkPassword() {
+    const input = document.getElementById("manualPass").value;
+    const error = document.getElementById("passwordError");
+
+    if (input === "Cacahuète43$") {
+      lockIcon.classList.add("unlocked");
+      setTimeout(() => {
+        overlay.style.opacity = "0";
+        setTimeout(() => overlay.remove(), 1000);
+      }, 1000);
+      error.style.display = "none";
+    } else {
+      error.style.display = "block";
+    }
+  }
 </script>
 
 </body>
