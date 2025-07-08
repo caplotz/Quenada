@@ -1,0 +1,33 @@
+    container.classList.remove('active');
+    container.classList.add(direction === 1 ? 'exit-left' : 'exit-right');
+
+    setTimeout(() => {
+      index[type] = (index[type] + direction + data.length) % data.length;
+      renderCard(type, data, id);
+    }, 300);
+  }
+
+  function init() {
+    renderCard('sousRois', sousRois, 'sousRoisCard');
+    renderCard('rois', rois, 'roisCard');
+    renderCard('reps', reps, 'repsCard');
+  }
+
+  init();
+
+  // Cadenas script
+  const unlockDate = new Date("2025-09-10T00:00:00").getTime();
+  const overlay = document.getElementById("lockOverlay");
+  const lockIcon = document.getElementById("lockIcon");
+  const countdown = document.getElementById("countdown");
+
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const diff = unlockDate - now;
+
+    if (diff <= 0) {
+      lockIcon.classList.add("unlocked");
+      setTimeout(() => {
+        overlay.style.opacity = "0";
+        setTimeout(() => overlay.remove(), 1000);
+      }, 1000);
